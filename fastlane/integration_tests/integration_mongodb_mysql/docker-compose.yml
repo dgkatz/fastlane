@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  target_mysql:
+    image: mariadb:10.5.8
+    environment:
+      MYSQL_PASSWORD: 123
+      MYSQL_USER: mysql
+      MYSQL_DATABASE: target
+      MYSQL_ROOT_PASSWORD: 123
+    ports:
+      - "5306:3306"
+  source_mongodb:
+    image: mongo:4.4.4
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mongo
+      MONGO_INITDB_ROOT_PASSWORD: 123
+      MONGO_INITDB_DATABASE: source
+    ports:
+      - "27017:27017"

@@ -1,0 +1,23 @@
+{
+  "ssm": {
+    "region": "us-east-1"
+  },
+  "source": {
+    "bigquery": {
+      "secret": "gcp-bigquery",
+      "gcp_project": "my_project",
+      "dataset_id": "analytics",
+      "table_id": "events"
+    }
+  },
+  "target": {
+    "athena": {
+      "table": "ios_app_events",
+      "bucket": "my-bucket",
+      "batch_size": 10000,
+      "concurrency": 8
+    }
+  },
+  "replication_mode": "FULL_TABLE",
+  "max_buffered_batches": 8
+}

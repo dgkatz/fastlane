@@ -1,0 +1,25 @@
+{
+  "ssm": {
+    "region": "us-east-1"
+  },
+  "source": {
+    "mysql": {
+      "secret": "mysql-ssm",
+      "db": "db",
+      "table": "my_table",
+      "key": "id",
+      "batch_size": 100000,
+      "offset": 0
+    }
+  },
+  "target": {
+    "athena": {
+      "table": "my_table",
+      "database": "my-bucket",
+      "batch_size": 100000,
+      "concurrency": 8
+    }
+  },
+  "replication_mode": "FULL_TABLE",
+  "max_buffered_batches": 8
+}

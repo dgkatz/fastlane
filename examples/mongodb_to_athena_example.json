@@ -1,0 +1,28 @@
+{
+  "ssm": {
+    "region": "us-east-1"
+  },
+  "source": {
+    "mongodb": {
+      "secret": "mongodb-ssm-secret",
+      "batch_size": 10000,
+      "replication_key": "_id",
+      "database": "mongo_database",
+      "collection": "mongo_database_collection",
+      "filter_fields": [
+        ["test1.field.number_field", "$gt", 49, 0],
+        ["test1.field.string_field", "hi", "None", 0]
+      ]
+    }
+  },
+  "target": {
+    "athena": {
+      "table": "mongo_example",
+      "bucket": "my-bucket",
+      "batch_size": 100000,
+      "concurrency": 4
+    }
+  },
+  "replication_mode": "INCREMENTAL",
+  "max_buffered_batches": 8
+}

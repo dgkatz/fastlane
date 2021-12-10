@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  web-api:
+    build:
+      dockerfile: web_api/Dockerfile
+      context: .
+    environment:
+      ENVIRONMENT: test
+    ports:
+      - "8001:8001"
+    depends_on:
+      - mysql
+    networks:
+      - fastlane-web
+    deploy:
+      restart_policy:
+        condition: on-failure
+        max_attempts: 5
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_PASSWORD: 123
+      MYSQL_USER: mysql
+      MYSQL_DATABASE: pipeline
+      MYSQL_ROOT_PASSWORD: 123
+    expose:
+      - 3306
+    networks:
+      - fastlane-web
+networks:
+  fastlane-web:
+    name: fastlane_web

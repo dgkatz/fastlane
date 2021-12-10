@@ -1,0 +1,41 @@
+{
+  "logs": {
+    "log_file": "/tmp/target.planets.mysql.mongodb.log",
+    "log_to_cloudwatch": false,
+    "error_log_to_slack": false
+  },
+  "ssm": {
+    "region": "us-east-1"
+  },
+  "source": {
+    "mongodb": {
+      "batch_size": 200,
+      "replication_key": "rowid",
+      "database": "source",
+      "collection": "planets",
+      "host": "0.0.0.0",
+      "port": 27017,
+      "user": "mongo",
+      "password": "123",
+      "offset": -1
+    }
+  },
+  "transform": {
+    "add_op_fields": false
+  },
+  "target": {
+    "mysql": {
+      "db": "target",
+      "table": "planets",
+      "key": "rowid",
+      "host": "0.0.0.0",
+      "port": 5306,
+      "username": "mysql",
+      "password": "123",
+      "batch_size": 200,
+      "concurrency": 1
+    }
+  },
+  "replication_mode": "FULL_TABLE",
+  "max_buffered_batches": 8
+}
